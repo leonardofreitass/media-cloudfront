@@ -3,3 +3,4 @@ terraform.tfstate*
 .terraform*
 tfplan
 *.tfplan
+edge-lambdas/node_modules

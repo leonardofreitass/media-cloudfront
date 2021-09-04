@@ -1,0 +1,44 @@
+{
+  "name": "media-edge-lambdas",
+  "version": "1.0.0",
+  "description": "Media CloudFront Lambda@Edge",
+  "scripts": {
+    "clean": "rimraf 'built/*'",
+    "lint": "eslint 'src/**/*.ts'",
+    "build": "rollup -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leonardofreitass/media-cloudfront.git"
+  },
+  "keywords": [
+    "cloudfront",
+    "lambda@edge",
+    "cdn",
+    "media"
+  ],
+  "author": "Leonardo Freitas dos Santos",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leonardofreitass/media-cloudfront/issues"
+  },
+  "homepage": "https://github.com/leonardofreitass/media-cloudfront#readme",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.4",
+    "@rollup/plugin-replace": "^3.0.0",
+    "@types/aws-lambda": "^8.10.83",
+    "@types/node": "^16.7.10",
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "eslint": "^7.32.0",
+    "eslint-config-standard-with-typescript": "^21.0.1",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.56.3",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.2"
+  }
+}
