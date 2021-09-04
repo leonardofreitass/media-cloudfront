@@ -42,5 +42,11 @@ resource "aws_cloudfront_distribution" "media_cloudfront" {
     min_ttl                = 0
     target_origin_id       = "S3-media-bucket"
     viewer_protocol_policy = "redirect-to-https"
+
+    lambda_function_association {
+      event_type   = "origin-request"
+      lambda_arn   = aws_lambda_function.origin_request_lambda.qualified_arn
+      include_body = false
+    }
   }
 }
