@@ -6,6 +6,8 @@ const CLOUDINARY_ID = process.env.CLOUDINARY_ID || 'demo'
 
 export const handler: AWSLambda.CloudFrontRequestHandler = async (event) => {
   const request = event.Records[0].cf.request
+  const token = request.headers['x-auth-token'][0].value
+  delete request.headers['x-auth-token']
 
   if (request.querystring === "") {
     return request
@@ -14,7 +16,7 @@ export const handler: AWSLambda.CloudFrontRequestHandler = async (event) => {
   try {
     const cloudinaryTransformations = transformQueryString(request.querystring)
     const distributionHost = event.Records[0].cf.config.distributionDomainName
-    const mediaURL = new URL(`https://${distributionHost}${request.uri}`)
+    const mediaURL = new URL(`https://${distributionHost}${request.uri}?token=${token}`)
     request.origin = { custom: {
       customHeaders: {},
       domainName: CLOUDINARY_HOST,
@@ -25,7 +27,7 @@ export const handler: AWSLambda.CloudFrontRequestHandler = async (event) => {
       readTimeout: 30,
       sslProtocols: ['TLSv1', 'TLSv1.1', 'TLSv1.2']
     } }
-    request.uri = `/${CLOUDINARY_ID}/image/fetch/${cloudinaryTransformations}/${mediaURL}`
+    request.uri = `/${CLOUDINARY_ID}/image/fetch/${cloudinaryTransformations}/${encodeURIComponent(mediaURL.toString())}`
     request.headers['host'] = [{ key: 'host', value: CLOUDINARY_HOST }]
   
     return request
