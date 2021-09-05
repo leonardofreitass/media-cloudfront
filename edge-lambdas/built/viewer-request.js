@@ -17,6 +17,7 @@ const handler = async (event) => {
         const authenticated = await authenticateRequest(token);
         if (authenticated) {
             qs.delete('token');
+            request.headers['x-auth-token'] = [{ key: 'x-auth-token', value: token }];
             request.querystring = qs.toString();
             return request;
         }
