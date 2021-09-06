@@ -10,7 +10,7 @@ This repository contains the terraform files that creates an S3 bucket used to u
 In order to spin all the above, you will need:
 
 - An AWS account
-- An Cloudinary account
+- A Cloudinary account
 - Terraform installed
 
 We will not cover here any service that uploads media to the S3 bucket or emits authentication tokens to access those medias, we will solely focus on the Delivery part of the setup.
