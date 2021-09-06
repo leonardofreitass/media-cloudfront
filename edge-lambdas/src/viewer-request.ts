@@ -1,4 +1,6 @@
 import { URLSearchParams } from 'url'
+import { Unit } from 'aws-embedded-metrics'
+import withTelemetry from './telemetry'
 
 const authenticateRequest = async (token: string): Promise<boolean> => {
   // Here you can, as an example, send an HTTP Request to a
@@ -7,44 +9,50 @@ const authenticateRequest = async (token: string): Promise<boolean> => {
 }
 
 export const handler: AWSLambda.CloudFrontRequestHandler = async (event) => {
-  const request = event.Records[0].cf.request
+  return withTelemetry(async (telemetry) => {
+    const request = event.Records[0].cf.request
 
-  const qs = new URLSearchParams(request.querystring)
-  const token = qs.get('token')
-
-  if (token) {
-    const authenticated = await authenticateRequest(token)
-    if (authenticated) {
-      qs.delete('token')
-      request.headers['x-auth-token'] = [{ key: 'x-auth-token', value: token }]
-      request.querystring = qs.toString()
-      return request
+    const qs = new URLSearchParams(request.querystring)
+    const token = qs.get('token')
+  
+    if (token) {
+      const authenticated = await authenticateRequest(token)
+      if (authenticated) {
+        qs.delete('token')
+        request.headers['x-auth-token'] = [{ key: 'x-auth-token', value: token }]
+        request.querystring = qs.toString()
+        telemetry.metrics.putMetric('AuthenticationSuccess', 1, Unit.Count)
+        return request
+      }
     }
-  }
 
-  return {
-    status: "403",
-    headers: {
-      "content-type": [
-        {
-          key: "Content-Type",
-          value: "application/json",
-        },
-      ],
-      "cache-control": [
-        {
-          key: "Cache-Control",
-          value: "no-cache",
-        },
-      ],
-    },
-    bodyEncoding: "text",
-    body: JSON.stringify(
-      {
-        error: "Unauthenticated request",
+    telemetry.metrics.putMetric('AuthenticationFailure', 1, Unit.Count)
+    telemetry.metrics.setProperty('ResponseStatus', '403')
+  
+    return {
+      status: "403",
+      headers: {
+        "content-type": [
+          {
+            key: "Content-Type",
+            value: "application/json",
+          },
+        ],
+        "cache-control": [
+          {
+            key: "Cache-Control",
+            value: "no-cache",
+          },
+        ],
       },
-      null,
-      2
-    ),
-  }
+      bodyEncoding: "text",
+      body: JSON.stringify(
+        {
+          error: "Unauthenticated request",
+        },
+        null,
+        2
+      ),
+    }
+  })
 }

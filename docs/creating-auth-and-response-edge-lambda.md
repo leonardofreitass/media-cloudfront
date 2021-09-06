@@ -303,6 +303,6 @@ CLOUDINARY_ID={my_id} npx rollup -c
 
 Then run `terraform plan` and `terraform apply`. After everything is done and applied, not only error responses should be normalized, but you now will need to pass the `token=MY_SECRET` as a query parameter in order to access your media!
 
-You can check the full solution we went through up to this point (including part II) here in this [GitHub repo](https://github.com/leonardofreitass/media-cloudfront/tree/add-response-and-auth-lambdas).
+You can check the full solution we went through up to this point (including parts I and II) here in this [GitHub repo](https://github.com/leonardofreitass/media-cloudfront/tree/add-response-and-auth-lambdas).
  
 All good! We now have normalized error response and authentication! In the next and last steps, we will add logging and monitoring metrics to our lambdas. See you in the next article!

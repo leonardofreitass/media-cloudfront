@@ -365,6 +365,6 @@ Almost done! We just need to now attach this lambda to our CloudFront distributi
 
 Nothing special here. We just use the lambda we created as the origin-request of the distribution. Now, go ahead and run `terraform plan` and `terraform apply`. After everything is done and applied, you should be able to do on-demand transformations: `https://{randomId}.cloudfront.net/{imagePath}` will still go to S3 as usual, but `https://{randomId}.cloudfront.net/{imagePath}?width=300` as an example returns the image transformed by Cloudinary!
  
- You can check the full solution we went through up to this point (including the part I) here in this [GitHub repo](https://github.com/leonardofreitass/media-cloudfront/tree/add-origin-edge-lambdas).
+ You can check the full solution we went through up to this point (including part I) here in this [GitHub repo](https://github.com/leonardofreitass/media-cloudfront/tree/add-origin-edge-lambdas).
  
 Done! We now have on-demand image transformations on our CloudFront distribution! In the next steps, we will add response formatting and authentication to our distribution. See you in the next article!
