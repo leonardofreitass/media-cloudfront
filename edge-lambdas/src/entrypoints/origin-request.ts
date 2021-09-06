@@ -1,6 +1,6 @@
 import { URL } from 'url'
-import transformQueryString from './transformations'
-import withTelemetry from './telemetry'
+import transformQueryString from '../tools/transformations'
+import withTelemetry from '../tools/telemetry'
 
 const CLOUDINARY_HOST = 'res.cloudinary.com'
 const CLOUDINARY_ID = process.env.CLOUDINARY_ID || 'demo'

@@ -27,7 +27,7 @@ function makeEntryPointFor (input) {
 }
 
 export default [
-  makeEntryPointFor('./src/origin-request.ts'),
-  makeEntryPointFor('./src/origin-response.ts'),
-  makeEntryPointFor('./src/viewer-request.ts')
+  makeEntryPointFor('./src/entrypoints/origin-request.ts'),
+  makeEntryPointFor('./src/entrypoints/origin-response.ts'),
+  makeEntryPointFor('./src/entrypoints/viewer-request.ts')
 ]

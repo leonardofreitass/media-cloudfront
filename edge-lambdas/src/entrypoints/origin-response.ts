@@ -1,6 +1,6 @@
 import { CloudFrontHeaders } from "aws-lambda"
 import { Unit } from 'aws-embedded-metrics'
-import withTelemetry from './telemetry'
+import withTelemetry from '../tools/telemetry'
 
 export const handler: AWSLambda.CloudFrontResponseHandler = async (event) => {
   return withTelemetry((telemetry) => {

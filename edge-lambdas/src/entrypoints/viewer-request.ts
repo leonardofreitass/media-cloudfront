@@ -1,6 +1,6 @@
 import { URLSearchParams } from 'url'
 import { Unit } from 'aws-embedded-metrics'
-import withTelemetry from './telemetry'
+import withTelemetry from '../tools/telemetry'
 
 const authenticateRequest = async (token: string): Promise<boolean> => {
   // Here you can, as an example, send an HTTP Request to a
